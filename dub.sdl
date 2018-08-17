@@ -1,0 +1,6 @@
+name "freetype-d"
+description "D bindings to freetype"
+authors "Remi Thebault"
+copyright "Copyright © 2018, Remi Thebault"
+license "MIT"
+preGenerateCommands "dub run --build=debug --single build.d"
