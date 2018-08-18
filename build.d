@@ -12,14 +12,6 @@ import std.exception;
 
 void main(string[] args)
 {
-    string[string] env;
-
-    version (Windows) {
-        auto msvcInstalls = detectMsvcInstalls();
-        enforce(msvcInstalls.length, "could not detect msvc");
-        env = msvcEnvironment(msvcInstalls[0].vcvarsBat, ["x86"]);
-    }
-
     auto src = SrcFetch
             // .fromUrl("https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz")
             // .md5("3adb0e35d3c100c456357345ccfa8056");
@@ -29,9 +21,11 @@ void main(string[] args)
             // .commitRef("VER-2-9-1");
             .commitRef("660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak 
     
+    auto bs = CMake.create().get();
+    
     auto bld = Build
             .dubWorkDir()
             .src(src)
             .release()
-            .build(cmake("NMake Makefiles", null, env));
+            .build(bs);
 }
