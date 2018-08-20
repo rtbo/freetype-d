@@ -1,0 +1,6 @@
+name "init"
+description "A minimal freetype-d example"
+authors "Rémi Thebault"
+copyright "Copyright © 2018, Rémi Thebault"
+license "MIT"
+dependency "freetype-d" path="../.."
