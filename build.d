@@ -29,13 +29,13 @@ void main(string[] args)
                 // .commitRef("VER-2-9-1");
                 // .commitRef("660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak
 
-        auto bs = CMake.create().get();
+        auto bs = CMake.create().buildSystem();
 
-        const bld = Build
+        auto res = Build
                 .dubWorkDir()
                 .src(src)
                 .release()
-                .checkTarget(Target("lib64/libfreetype.a"))
+                .target(libTarget("freetype"))
                 .build(bs);
 
         auto pngFinder = findOptionRegex("FT_CONFIG_OPTION_USE_PNG");
@@ -44,7 +44,7 @@ void main(string[] args)
 
         string[] libs;
 
-        const option = bld.install("include", "freetype2", "freetype", "config", "ftoption.h");
+        const option = res.dirs.install("include", "freetype2", "freetype", "config", "ftoption.h");
         foreach (l; File(option, "r").byLine) {
             if (matchAll(l, pngFinder)) {
                 libs ~= "\"png\"";
@@ -57,7 +57,7 @@ void main(string[] args)
             }
         }
 
-        writefln("dub:sdl:sourceFiles \"%s\"", bld.install("lib64/libfreetype.a"));
+        writefln("dub:sdl:sourceFiles \"%s\"", res.artifact("freetype"));
         if (libs.length) writefln("dub:sdl:libs %s", libs.join(" "));
     }
 }
