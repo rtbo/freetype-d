@@ -20,14 +20,13 @@ void main(string[] args)
 {
     //if (!pkgConfigDubLines("freetype2"))
     {
-        auto src = SrcFetch
-                .fromUrl("https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz")
-                .md5("3adb0e35d3c100c456357345ccfa8056");
-                // .fromUrl("https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2")
-                // .md5("60ef7d8160cd4bf8cb118ee9d65367ca");
-                // .fromUrl("http://git.sv.nongnu.org/r/freetype/freetype2.git")
-                // .commitRef("VER-2-9-1");
-                // .commitRef("660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak
+        auto src = archiveFetchSource(
+            "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz",
+            "3adb0e35d3c100c456357345ccfa8056");
+            // "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2",
+            // "60ef7d8160cd4bf8cb118ee9d65367ca");
+            // "http://git.sv.nongnu.org/r/freetype/freetype2.git", "VER-2-9-1");
+            // "http://git.sv.nongnu.org/r/freetype/freetype2.git", "660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak
 
         auto bs = CMake.create().buildSystem();
 
