@@ -16,9 +16,28 @@ auto findOptionRegex(string option)
     return regex(r"^#define\s+"~option);
 }
 
+// will be replaced by dub#1453
+void genLinkerFile(R)(R flagRange)
+{
+    import std.path : buildPath;
+    import std.process : environment;
+    import std.stdio : File, stdout;
+
+    const flagFilename = buildPath(environment.get("DUB_PACKAGE_DIR", "."), "linker_flags.txt");
+    stdout.writeln("generating ", flagFilename);
+
+    auto flagF = File(flagFilename, "w");
+    foreach (lf; flagRange) {
+        flagF.writeln(lf);
+    }
+}
 void main(string[] args)
 {
-    //if (!pkgConfigDubLines("freetype2"))
+    try {
+        auto lib = pkgConfig("freetype2").libs().invoke();
+        genLinkerFile(lib.lflags);
+    }
+    catch (Exception ex)
     {
         auto src = archiveFetchSource(
             "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz",
@@ -56,7 +75,13 @@ void main(string[] args)
             }
         }
 
-        writefln("dub:sdl:sourceFiles \"%s\"", res.artifact("freetype"));
-        if (libs.length) writefln("dub:sdl:libs %s", libs.join(" "));
+        auto flags = [ res.artifact("freetype") ];
+        foreach (l; libs) {
+            flags ~= "-l"~l;
+        }
+
+        genLinkerFile(flags);
+        // writefln("dub:sdl:sourceFiles \"%s\"", res.artifact("freetype"));
+        // if (libs.length) writefln("dub:sdl:libs %s", libs.join(" "));
     }
 }
