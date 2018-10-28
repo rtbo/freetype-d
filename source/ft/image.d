@@ -112,28 +112,28 @@ enum FT_Curve_Tag_Touch_X = FT_CURVE_TAG_TOUCH_X;
 enum FT_Curve_Tag_Touch_Y = FT_CURVE_TAG_TOUCH_Y;
 
 
-alias FT_Outline_MoveToFunc = int function ( const FT_Vector*  to,
+alias FT_Outline_MoveToFunc = int function ( const(FT_Vector)* to,
                                              void*             user );
 
 alias FT_Outline_MoveTo_Func = FT_Outline_MoveToFunc;
 
 
-alias FT_Outline_LineToFunc = int function ( const FT_Vector*  to,
+alias FT_Outline_LineToFunc = int function ( const(FT_Vector)* to,
                                              void*             user );
 
 alias FT_Outline_LineTo_Func = FT_Outline_LineToFunc;
 
 
-alias FT_Outline_ConicToFunc = int function ( const FT_Vector*  control,
-                                              const FT_Vector*  to,
+alias FT_Outline_ConicToFunc = int function ( const(FT_Vector)*  control,
+                                              const(FT_Vector)*  to,
                                               void*             user );
 
 alias FT_Outline_ConicTo_Func = FT_Outline_ConicToFunc;
 
 
-alias FT_Outline_CubicToFunc = int function ( const FT_Vector*  control1,
-                                              const FT_Vector*  control2,
-                                              const FT_Vector*  to,
+alias FT_Outline_CubicToFunc = int function ( const(FT_Vector)*  control1,
+                                              const(FT_Vector)*  control2,
+                                              const(FT_Vector)*  to,
                                               void*             user );
 
 alias FT_Outline_CubicTo_Func = FT_Outline_CubicToFunc;
@@ -180,7 +180,7 @@ struct FT_Span
 
 alias FT_SpanFunc = void function ( int             y,
                                     int             count,
-                                    const FT_Span*  spans,
+                                    const(FT_Span)* spans,
                                     void*           user );
 
 alias FT_Raster_Span_Func = FT_SpanFunc;
@@ -201,8 +201,8 @@ enum FT_RASTER_FLAG_CLIP = 0x4;
 
 struct FT_Raster_Params
 {
-    const FT_Bitmap*        target;
-    const void*             source;
+    const(FT_Bitmap)*       target;
+    const(void)*            source;
     int                     flags;
     FT_SpanFunc             gray_spans;
     FT_SpanFunc             black_spans;  /* unused */

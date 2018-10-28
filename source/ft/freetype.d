@@ -373,7 +373,7 @@ struct FT_Parameter
 struct FT_Open_Args
 {
     FT_UInt         flags;
-    const FT_Byte*  memory_base;
+    const(FT_Byte)*  memory_base;
     FT_Long         memory_size;
     FT_String*      pathname;
     FT_Stream       stream;
@@ -451,7 +451,10 @@ enum FT_Render_Mode
 
 
 enum FT_RENDER_MODE_NORMAL = FT_Render_Mode.FT_RENDER_MODE_NORMAL;
+enum FT_RENDER_MODE_LIGHT = FT_Render_Mode.FT_RENDER_MODE_LIGHT;
 enum FT_RENDER_MODE_MONO = FT_Render_Mode.FT_RENDER_MODE_MONO;
+enum FT_RENDER_MODE_LCD = FT_Render_Mode.FT_RENDER_MODE_LCD;
+enum FT_RENDER_MODE_LCD_V = FT_Render_Mode.FT_RENDER_MODE_LCD_V;
 
 enum FT_SUBGLYPH_FLAG_ARGS_ARE_WORDS = 1;
 enum FT_SUBGLYPH_FLAG_ARGS_ARE_XY_VALUES = 2;
