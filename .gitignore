@@ -1,0 +1,6 @@
+.dub/
+*.exe
+*.lib
+*.a
+build
+linker_flags.txt
