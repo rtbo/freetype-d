@@ -1,6 +1,6 @@
 /+ dub.sdl:
-    dependency "dbuild" version="*"
-    dependency "pkg-config" version="*"
+    dependency "dbuild" version="~>0.0.1"
+    dependency "pkg-config" version="~>0.0.1"
 +/
 
 import dbuild;
@@ -39,14 +39,14 @@ void main(string[] args)
     }
     catch (Exception ex)
     {
-        auto src = archiveFetchSource(
-            "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz",
-            "3adb0e35d3c100c456357345ccfa8056");
+        // auto src = archiveFetchSource(
+            // "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.gz",
+            // "3adb0e35d3c100c456357345ccfa8056");
             // "https://download.savannah.gnu.org/releases/freetype/freetype-2.9.1.tar.bz2",
             // "60ef7d8160cd4bf8cb118ee9d65367ca");
-            // "http://git.sv.nongnu.org/r/freetype/freetype2.git", "VER-2-9-1");
-            // "http://git.sv.nongnu.org/r/freetype/freetype2.git", "660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak
-
+        auto src = gitSource(
+            // "https://git.savannah.nongnu.org/r/freetype/freetype2.git", "VER-2-9-1");
+            "https://git.savannah.nongnu.org/r/freetype/freetype2.git", "660afb5ce8"); // this is 2.9.1 with windows cmake install unbreak
         auto bs = CMake.create().buildSystem();
 
         auto res = Build
